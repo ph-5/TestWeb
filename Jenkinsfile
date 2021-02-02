@@ -20,7 +20,7 @@ pipeline {
 				env.GIT_COMMITTER_EMAIL = sh(
 					script: "git --no-pager show -s --format='%ae' $GIT_COMMIT",
 					returnStdout: true
-				)
+				).trim()
 				
 				env.GIT_COMMITT_HASH = sh(
 					script: "echo $GIT_COMMIT",
