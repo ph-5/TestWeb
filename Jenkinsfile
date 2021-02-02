@@ -13,58 +13,58 @@ pipeline {
 
 	agent any
 
-
 	stages {
-		/* 設定資訊 */
 		stage('Setting Info') {
 			steps {
 				echo 'Setting Info ...'
+				env.GIT_COMMITTER_EMAIL = sh(
+					script: "git --no-pager show -s --format='%ae' $GIT_COMMIT",
+					returnStdout: true
+				)
+				
+				env.GIT_COMMITT_HASH = sh(
+					script: "echo $GIT_COMMIT",
+					returnStdout: true
+				).trim().take(8)
 			}
 		}
 
-		/* 顯示資訊 */
 		stage('Info') {
 			steps {
 				echo 'Show Infomation ...'
 			}
 		}
 
-		/* 建置前 */
 		stage('Setting') {
 			steps {
 				echo 'Setting ...'
 			}
 		}
 
-		/* 相依 */
 		stage('Dependencies') {
 			steps {
 				echo 'Dependencies ...'
 			}
 		}
 
-		/* 建置 */
 		stage('Build') {
 			steps {
 				echo 'Buliding ...'
 			}
 		}
 
-		/* 打包 */
 		stage('Artifacts') {
 			steps {
 				echo 'Artifacts ...'
 			}
 		}
 
-		/* 發佈 - QC */
 		stage('Deploy - QC') {
 			steps {
 				echo 'Deploing to QC ...'
 			}
 		}
 
-		/* 發佈 - Prod */
 		stage('Deploy - Prod') {
 			steps {
 				echo 'Deploing to Prod ...'
