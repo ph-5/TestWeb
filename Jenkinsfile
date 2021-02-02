@@ -17,15 +17,17 @@ pipeline {
 		stage('Setting Info') {
 			steps {
 				echo 'Setting Info ...'
-				env.GIT_COMMITTER_EMAIL = sh(
-					script: "git --no-pager show -s --format='%ae' $GIT_COMMIT",
-					returnStdout: true
-				).trim()
-				
-				env.GIT_COMMITT_HASH = sh(
-					script: "echo $GIT_COMMIT",
-					returnStdout: true
-				).trim().take(8)
+				script {
+					env.GIT_COMMITTER_EMAIL = sh(
+						script: "git --no-pager show -s --format='%ae' $GIT_COMMIT",
+						returnStdout: true
+					).trim()
+					
+					env.GIT_COMMITT_HASH = sh(
+						script: "echo $GIT_COMMIT",
+						returnStdout: true
+					).trim().take(8)
+				}
 			}
 		}
 
