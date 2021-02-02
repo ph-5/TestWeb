@@ -14,9 +14,9 @@ pipeline {
 	agent any
 
 	stages {
+		/* Initialize setting information */
 		stage('Setting Info') {
 			steps {
-				echo 'Setting Info ...'
 				script {
 					env.GIT_COMMITTER_EMAIL = sh(
 						script: "git --no-pager show -s --format='%ae' $GIT_COMMIT",
@@ -31,27 +31,31 @@ pipeline {
 			}
 		}
 
+		/* Check the environment information  */
 		stage('Info') {
 			steps {
-				echo 'Show Infomation ...'
+				sh 'dotnet --info'
+				sh 'printenv'
 			}
 		}
 
+		/* Configure */
 		stage('Setting') {
 			steps {
-				echo 'Setting ...'
 			}
 		}
 
+		/* Dependencies */
 		stage('Dependencies') {
 			steps {
-				echo 'Dependencies ...'
 			}
 		}
 
+		/* Build */
 		stage('Build') {
 			steps {
-				echo 'Buliding ...'
+				sh 'dotnet restore'
+				sh 'dotnet build'
 			}
 		}
 
