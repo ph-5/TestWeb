@@ -42,12 +42,14 @@ pipeline {
 		/* Configure */
 		stage('Setting') {
 			steps {
+				echo
 			}
 		}
 
 		/* Dependencies */
 		stage('Dependencies') {
 			steps {
+				echo
 			}
 		}
 
